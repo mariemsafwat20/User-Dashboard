@@ -1,0 +1,49 @@
+
+
+<!-- Search -->
+<mat-toolbar>
+    <h1 class="title">User Details</h1>
+</mat-toolbar>
+
+<!-- Back Btn -->
+<div class="back" (click)="goBack()">
+    <i class="fa-solid fa-angles-left"></i>
+    <p>Back</p>
+</div>
+
+<!-- User-->
+<div *ngIf="user" class="container-fluid ps-5 pt-2">
+    <img [src]="user.image" alt="User Image" style="width: 10%;"/>
+    <p>
+        <strong>ID:</strong> 
+        {{ user.id }}
+    </p>
+    <p style="font-size: 23px; margin-bottom: 0;">
+        <strong>Name:</strong> 
+        {{ user.firstName }} {{ user.lastName }}
+    </p>
+    <p>
+        <strong>Age:</strong>
+        {{ user.age }}
+    </p>
+    <p>
+        <strong>Email:</strong> 
+        {{ user.email }}
+    </p>
+    <p>
+        <strong>Phone:</strong> 
+        {{ user.phone }}
+    </p>
+    <p>
+        <strong>Gender:</strong> 
+        {{ user.gender }}
+    </p>
+    <p>
+        <strong>Address:</strong>
+        {{ user.address?.address }}, {{ user.address?.city }}
+    </p>
+</div>
+
+<div *ngIf="!user">
+    <p>Loading user details...</p>
+</div>

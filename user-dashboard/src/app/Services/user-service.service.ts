@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,7 @@ export class UserServiceService {
     return this.http.get(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
   }
 
-
+  getUserById(id: number):Observable<any>{
+    return this.http.get(`${this.api}/${id}`);
+  }
 }
