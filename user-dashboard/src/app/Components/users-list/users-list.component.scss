@@ -1,0 +1,39 @@
+
+
+
+.title{
+    margin-left: 20px; 
+    font-size: 25px;
+}
+.search{
+    margin: auto;
+    width: 25%;
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-size: 15px;
+
+}
+
+// Card
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+mat-card {
+    width: 25%;
+    height: 25vh;
+    cursor: pointer;
+}
+
+.detailsBtn{
+    width: fit-content;
+    text-align: center;
+    margin: 25px auto;
+    font-size: 15px;
+}
+
+
