@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import { UserServiceService } from '../../Services/user-service.service';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { loadUsers } from '../../Store/users/user.actions';
-import { selectAllUsers, selectLoading } from '../../Store/users/user.selectors';
+import { selectAllUsers, selectLoading, selectTotalUsers } from '../../Store/users/user.selectors';
+import { log } from 'console';
 
 @Component({
   selector: 'app-users-list',
@@ -16,32 +19,35 @@ import { selectAllUsers, selectLoading } from '../../Store/users/user.selectors'
   imports: [
     MatToolbarModule,
     MatCardModule,
+    MatPaginatorModule,
     HttpClientModule,
     CommonModule,
-    MatButtonModule,
     ],
-  providers: [UserServiceService],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss'
 })
 
 export class UsersListComponent {
-  // users: any[] = [];
 
-  users$ = this.store.select(selectAllUsers);
   loading$ = this.store.select(selectLoading);
-  
-  skip = 3;
-  limit = 6;
+  users$ = this.store.select(selectAllUsers);
+  total$ = this.store.select(selectTotalUsers);
+
+  totalUsers = 0;
+  limit = 5;
+  pageIndex = 0;           
 
   constructor(private router: Router, private store: Store) { }
 
   ngOnInit(){
-    this.fetchUsers();    
+    this.loadUserData();    
   }
 
-  fetchUsers() {
-    this.store.dispatch(loadUsers({ limit: this.limit, skip: this.skip}));
+  loadUserData() {
+    this.store.select(selectTotalUsers).subscribe(total => {
+      this.totalUsers = total;
+    })
+    this.store.dispatch(loadUsers({ limit: this.limit, skip: this.pageIndex * this.limit }));
   }
 
   userDetails(id:number){
@@ -49,4 +55,12 @@ export class UsersListComponent {
   }
 
 
+  onPageChange(event: PageEvent){
+    this.limit = event.pageSize;
+
+    // Get PageNum
+    this.pageIndex = event.pageIndex;
+    
+    this.loadUserData();
+  }
 }

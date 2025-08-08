@@ -12,7 +12,7 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
   getUsers(limitNum: number, skipNum: number) {
-    return this.http.get<{ users: User[] }>(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
+    return this.http.get<{ users: User[]; total: number }>(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
   }
 
   getUserById(id: number):Observable<any>{

@@ -10,12 +10,16 @@ import { of } from 'rxjs';
 export class UserEffects {
   constructor(private actions$: Actions, private userService: UserServiceService) {}
 
+  // getAllUsers
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUsers),
       mergeMap(({ limit, skip }) =>
         this.userService.getUsers(limit, skip).pipe(
-          map(response => loadUsersSuccess({ users: response.users })),
+          map(response => loadUsersSuccess({ 
+            users: response.users, 
+            totalUsers: response.total,
+          })),
           catchError(error => of(loadUsersFailure({ error })))
         )
       )
