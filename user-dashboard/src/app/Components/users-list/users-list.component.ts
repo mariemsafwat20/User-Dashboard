@@ -9,9 +9,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { loadUsers } from '../../Store/users/user.actions';
+import { loadUsers, searchUser } from '../../Store/users/user.actions';
 import { selectAllUsers, selectLoading, selectTotalUsers } from '../../Store/users/user.selectors';
-import { log } from 'console';
 
 @Component({
   selector: 'app-users-list',
@@ -43,6 +42,7 @@ export class UsersListComponent {
     this.loadUserData();    
   }
 
+  // UsersList
   loadUserData() {
     this.store.select(selectTotalUsers).subscribe(total => {
       this.totalUsers = total;
@@ -50,11 +50,12 @@ export class UsersListComponent {
     this.store.dispatch(loadUsers({ limit: this.limit, skip: this.pageIndex * this.limit }));
   }
 
+  // UserDetail
   userDetails(id:number){
     this.router.navigate(['/userDetail', id]);
   }
 
-
+  // Pagination
   onPageChange(event: PageEvent){
     this.limit = event.pageSize;
 
@@ -63,4 +64,15 @@ export class UsersListComponent {
     
     this.loadUserData();
   }
+
+  // Search
+  onSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const searchValue = input.value;
+
+    if (searchValue && !isNaN(Number(searchValue))) {
+      this.store.dispatch(searchUser({ searchValue }));
+    }
+  }
+  
 }

@@ -2,7 +2,7 @@
 <!-- Search -->
 <mat-toolbar>
     <h1 class="title">User Dashboard</h1>
-    <input class="search" matInput placeholder="Search by id" >
+    <input class="search" matInput placeholder="Search by id" (input)="onSearch($event)"/>
 </mat-toolbar>
 
 <!-- Card Of Users-->

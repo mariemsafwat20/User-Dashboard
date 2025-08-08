@@ -15,7 +15,7 @@ export class UserServiceService {
     return this.http.get<{ users: User[]; total: number }>(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
   }
 
-  getUserById(id: number):Observable<any>{
+  getUserById(id: number){
     return this.http.get<User>(`${this.api}/${id}`);
   }
 }
