@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadUsers } from '../../Store/users/user.actions';
+import { selectAllUsers, selectLoading } from '../../Store/users/user.selectors';
 
 @Component({
   selector: 'app-users-list',
@@ -21,25 +24,29 @@ import { Router } from '@angular/router';
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss'
 })
-export class UsersListComponent {
-  users: any[] = [];
 
-  constructor(private userService: UserServiceService, private router: Router) { }
+export class UsersListComponent {
+  // users: any[] = [];
+
+  users$ = this.store.select(selectAllUsers);
+  loading$ = this.store.select(selectLoading);
+  
+  skip = 3;
+  limit = 6;
+
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(){
-    this.getUsers();
+    this.fetchUsers();    
   }
 
-  getUsers(){
-    return this.userService.getUsers(10, 0).subscribe((data: any) => {
-      this.users = data.users;
-      console.log("ss",data.users);
-    })
+  fetchUsers() {
+    this.store.dispatch(loadUsers({ limit: this.limit, skip: this.skip}));
   }
 
-  // Correct
   userDetails(id:number){
     this.router.navigate(['/userDetail', id]);
   }
+
 
 }

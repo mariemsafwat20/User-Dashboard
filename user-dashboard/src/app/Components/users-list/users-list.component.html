@@ -8,7 +8,7 @@
 <!-- Card Of Users-->
 <div class="card" style="background-color: bisque;">
     <div class="container-fluid card-row mt-5">
-        @for (user of users; track user.name) {
+        @for (user of (users$ | async); track $index) {
             <mat-card (click)="userDetails(user.id)">
                 <img mat-card-image [src]="user.image" style="width: 100px; margin: 25px auto 20px;" />
                 <h3 style="font-size: 23px; margin-bottom: 0;">{{ user.firstName }} {{ user.lastName }}</h3>

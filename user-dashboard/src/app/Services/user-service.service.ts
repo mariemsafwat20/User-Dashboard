@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../Store/users/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
   getUsers(limitNum: number, skipNum: number) {
-    return this.http.get(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
+    return this.http.get<{ users: User[] }>(`${this.api}?limit=${limitNum}&skip=${skipNum}`);
   }
 
   getUserById(id: number):Observable<any>{
-    return this.http.get(`${this.api}/${id}`);
+    return this.http.get<User>(`${this.api}/${id}`);
   }
 }
