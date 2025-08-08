@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
 import { loadUsers, searchUser } from '../../Store/users/user.actions';
 import { selectAllUsers, selectLoading, selectTotalUsers } from '../../Store/users/user.selectors';
 
+import { UnderlineDirective } from '../../Shared/directives/underline.directive';
+
 @Component({
   selector: 'app-users-list',
   standalone: true,
@@ -21,6 +23,7 @@ import { selectAllUsers, selectLoading, selectTotalUsers } from '../../Store/use
     MatPaginatorModule,
     HttpClientModule,
     CommonModule,
+    UnderlineDirective
     ],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss'

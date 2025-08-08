@@ -4,6 +4,8 @@
     <h1 class="title">User Details</h1>
 </mat-toolbar>
 
+<!-- Loading Bar -->
+<mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
 
 <!-- User Details -->
 <section class="detail-section">
@@ -35,4 +37,6 @@
 <ng-template #loading>
     <p>Loading user details...</p>
 </ng-template>
+
+
 

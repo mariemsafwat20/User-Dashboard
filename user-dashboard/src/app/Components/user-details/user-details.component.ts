@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { selectError, selectLoading, selectSelectedUser } from '../../Store/users/user.selectors';
 import { Store } from '@ngrx/store';
@@ -17,7 +18,8 @@ import { map } from 'rxjs/operators';
   imports: [
     HttpClientModule,
     CommonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressBarModule
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
