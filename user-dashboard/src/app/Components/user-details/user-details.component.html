@@ -1,49 +1,34 @@
 
 
-<!-- Search -->
 <mat-toolbar>
     <h1 class="title">User Details</h1>
 </mat-toolbar>
 
-<!-- Back Btn -->
+<!-- BackBtn -->
 <div class="back" (click)="goBack()">
     <i class="fa-solid fa-angles-left"></i>
     <p>Back</p>
 </div>
 
-<!-- User-->
-<div *ngIf="user" class="container-fluid ps-5 pt-2">
-    <img [src]="user.image" alt="User Image" style="width: 10%;"/>
-    <p>
-        <strong>ID:</strong> 
-        {{ user.id }}
-    </p>
-    <p style="font-size: 23px; margin-bottom: 0;">
-        <strong>Name:</strong> 
-        {{ user.firstName }} {{ user.lastName }}
-    </p>
-    <p>
-        <strong>Age:</strong>
-        {{ user.age }}
-    </p>
-    <p>
-        <strong>Email:</strong> 
-        {{ user.email }}
-    </p>
-    <p>
-        <strong>Phone:</strong> 
-        {{ user.phone }}
-    </p>
-    <p>
-        <strong>Gender:</strong> 
-        {{ user.gender }}
-    </p>
-    <p>
-        <strong>Address:</strong>
-        {{ user.address?.address }}, {{ user.address?.city }}
-    </p>
+<!-- User Details -->
+<div *ngIf="user$ | async as user; else loading" class="container-fluid row ps-5 pt-2 align-items-center">  
+    <div class="col-2">
+        <img [src]="user.image" alt="User Image" style="width: 100%;" />
+    </div>
+    
+    <div class="details col-10">
+        @for( field of userFields$ | async; track $index){
+            <div class="row mb-3 align-items-center">
+                <div class="col-12 mt-3">
+                    <h3 class="d-inline fw-bold me-2 fs-3" style="text-transform: capitalize;">{{ field.label }}:</h3>
+                    <span class="text-muted fs-5">{{ field.value }}</span>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
-<div *ngIf="!user">
+<ng-template #loading>
     <p>Loading user details...</p>
-</div>
+</ng-template>
+
