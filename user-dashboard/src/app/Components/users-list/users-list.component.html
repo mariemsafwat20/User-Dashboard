@@ -1,30 +1,30 @@
 
-<!-- Search -->
-<mat-toolbar>
+<!-- Search & Title Toolbar -->
+<mat-toolbar color="primary" class="toolbar">
     <h1 class="title">User Dashboard</h1>
-    <input class="search" matInput placeholder="Search by id" (input)="onSearch($event)"/>
+    <input class="search" matInput placeholder="Search by id" (input)="onSearch($event)" />
 </mat-toolbar>
 
-<!-- Card Of Users-->
-<div class="card" style="background-color: bisque;">
-    <div class="container-fluid card-row my-5">
+<!-- Cards Section -->
+<section class="cards-section">
+    <div class="container card-row">
         @for (user of (users$ | async); track $index) {
-            <mat-card (click)="userDetails(user.id)">
-                <img mat-card-image [src]="user.image" style="width: 100px; margin: 25px auto 20px;" />
-                <h3 style="font-size: 23px; margin-bottom: 0;">{{ user.firstName }} {{ user.lastName }}</h3>
+            <mat-card (click)="userDetails(user.id)" class="user-card" tabindex="0" role="button">
+                <img mat-card-image [src]="user.image" alt="User Image" />
+                <h3>{{ user.firstName }} {{ user.lastName }}</h3>
                 <button mat-raised-button color="primary" class="detailsBtn">Details</button>
-            </mat-card>  
+            </mat-card>
         }
     </div>
-</div>
+</section>
 
 <!-- Pagination -->
-<mat-paginator class="mt-3 fs-5"
+<mat-paginator
+    class="mt-3 fs-5 paginator"
     [length]="totalUsers"
     [pageSize]="limit"
-    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    [pageSizeOptions]="[8, 10, 25, 50, 100]"
     aria-label="Select page"
     (page)="onPageChange($event)"
-    >
+>
 </mat-paginator>
-

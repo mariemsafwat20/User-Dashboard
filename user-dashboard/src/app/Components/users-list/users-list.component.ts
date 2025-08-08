@@ -33,7 +33,7 @@ export class UsersListComponent {
   total$ = this.store.select(selectTotalUsers);
 
   totalUsers = 0;
-  limit = 5;
+  limit = 8;
   pageIndex = 0;           
 
   constructor(private router: Router, private store: Store) { }

@@ -1,32 +1,36 @@
 
 
-<mat-toolbar>
+<mat-toolbar color="primary" class="toolbar">
     <h1 class="title">User Details</h1>
 </mat-toolbar>
 
-<!-- BackBtn -->
-<div class="back" (click)="goBack()">
-    <i class="fa-solid fa-angles-left"></i>
-    <p>Back</p>
-</div>
 
 <!-- User Details -->
-<div *ngIf="user$ | async as user; else loading" class="container-fluid row ps-5 pt-2 align-items-center">  
-    <div class="col-2">
-        <img [src]="user.image" alt="User Image" style="width: 100%;" />
+<section class="detail-section">
+    <!-- BackBtn -->
+    <div class="back" (click)="goBack()">
+        <i class="fa-solid fa-angles-left"></i>
+        <p>Back</p>
     </div>
-    
-    <div class="details col-10">
-        @for( field of userFields$ | async; track $index){
-            <div class="row mb-3 align-items-center">
-                <div class="col-12 mt-3">
-                    <h3 class="d-inline fw-bold me-2 fs-3" style="text-transform: capitalize;">{{ field.label }}:</h3>
-                    <span class="text-muted fs-5">{{ field.value }}</span>
+
+    <!-- User Details -->
+    <div *ngIf="user$ | async as user; else loading" class="userDetail container-fluid row ps-5 pt-2 align-items-center">  
+        <div class="col-2">
+            <img [src]="user.image" alt="User Image" />
+        </div>
+        
+        <div class="details col-10">
+            @for( field of userFields$ | async; track $index){
+                <div class="row mb-3 ms-2">
+                    <div class="col-12 mt-3">
+                        <h3 class="d-inline fw-bold me-2 fs-3" style="text-transform: capitalize;">{{ field.label }}:</h3>
+                        <span class="text-muted fs-5">{{ field.value }}</span>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+</section>
 
 <ng-template #loading>
     <p>Loading user details...</p>
